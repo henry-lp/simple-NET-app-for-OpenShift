@@ -14,14 +14,14 @@ spec:
     spec:
       containers:
         - name: webapp
-          image: image-registry.openshift-image-registry.svc:5000/dotnet-demo/webapp:latest
+          image: image-registry.openshift-image-registry.svc:5000/net-apps/webapp:2
           ports:
             - containerPort: 5020
           readinessProbe:
-            httpGet: { path: /healthz, port: 8080 }
+            httpGet: { path: /healthz, port: 5020 }
             initialDelaySeconds: 5
           livenessProbe:
-            httpGet: { path: /healthz, port: 8080 }
+            httpGet: { path: /healthz, port: 5020 }
             initialDelaySeconds: 10
 ---
 apiVersion: v1
