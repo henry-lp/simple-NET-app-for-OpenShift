@@ -25,4 +25,4 @@ COPY --from=build /out ./
 ENV ASPNETCORE_URLS=http://+:5020
 EXPOSE 5020
 
-ENTRYPOINT ["dotnet", "SimpleWebApp.dll"]   # <- use your actual dll name
+ENTRYPOINT ["dotnet", "SimpleWebApp.dll"]  
