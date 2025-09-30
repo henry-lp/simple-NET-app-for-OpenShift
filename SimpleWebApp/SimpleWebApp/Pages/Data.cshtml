@@ -1,0 +1,16 @@
+﻿@page
+@model SimpleWebApp.Pages.DataModel
+@{
+    ViewData["Title"] = "PVC Data";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form method="post">
+    <button type="submit" asp-page-handler="CheckFolder">Check Folder</button>
+</form>
+
+@if (Model.FolderCheckResult != null)
+{
+    <p>@Model.FolderCheckResult</p>
+}

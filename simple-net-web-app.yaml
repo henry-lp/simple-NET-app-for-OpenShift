@@ -23,6 +23,13 @@ spec:
           livenessProbe:
             httpGet: { path: /healthz, port: 5020 }
             initialDelaySeconds: 10
+          volumeMounts:
+            - name: webappdata
+              mountPath: /var/webappdata
+      volumes:
+        - name: webappdata
+          PersistentVolumeClaim:
+            claimName: webapp-data
 ---
 apiVersion: v1
 kind: Service
@@ -46,6 +53,3 @@ spec:
     name: webapp
   port:
     targetPort: http
-  # Uncomment for edge TLS termination (external HTTPS, internal HTTP)
-  # tls:
-  #   termination: edge
