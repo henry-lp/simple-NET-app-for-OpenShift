@@ -9,8 +9,13 @@
 <form method="post">
     <button type="submit" asp-page-handler="CheckFolder">Check Folder</button>
 </form>
+<form method="post">
+    <button type="submit" asp-page-handler="CreateTextFile">Create A Text File</button>
+</form>
 
-@if (Model.FolderCheckResult != null)
+@if (Model.CheckResult != null)
 {
-    <p>@Model.FolderCheckResult</p>
+    <p>@Model.CheckResult</p>
 }
+
+

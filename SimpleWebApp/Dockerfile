@@ -22,7 +22,7 @@ USER appuser
 COPY --from=build /out ./
 
 # Bind Kestrel to all interfaces on 5020
-ENV ASPNETCORE_URLS=http://+:5020
+EXPOSE 7020
 EXPOSE 5020
 
 ENTRYPOINT ["dotnet", "SimpleWebApp.dll"]  

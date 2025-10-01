@@ -15,7 +15,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHealthChecks("/healthz");
-//app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();

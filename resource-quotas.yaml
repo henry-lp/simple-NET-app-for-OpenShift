@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: compute-quota
+  namespace: net-apps
+spec:
+  hard:
+    requests.cpu: "2"       # total requested CPU across all pods ≤ 2 cores
+    requests.memory: 4Gi    # total requested memory ≤ 4 GiB
+    limits.cpu: "4"         # total max CPU across all pods ≤ 4 cores
+    limits.memory: 8Gi      # total max memory ≤ 8 GiB
+    pods: "10"              # max 10 pods in this namespace
+    persistentvolumeclaims: "5" # max 5 PVCs

@@ -2,10 +2,11 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: webapp-data
+  namespace: net-apps
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi
-  storageClassName: crc-csi-hostpath-storage  
+  storageClassName: crc-csi-hostpath-provisioner 

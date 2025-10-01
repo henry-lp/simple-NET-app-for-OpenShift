@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: webapp
+  namespace: net-apps
 spec:
   replicas: 1
   selector:
@@ -14,42 +15,57 @@ spec:
     spec:
       containers:
         - name: webapp
-          image: image-registry.openshift-image-registry.svc:5000/net-apps/webapp:2
+          image: image-registry.openshift-image-registry.svc:5000/net-apps/webapp:3
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
           ports:
             - containerPort: 5020
           readinessProbe:
-            httpGet: { path: /healthz, port: 5020 }
+            httpGet:
+              path: /healthz
+              port: 5020
             initialDelaySeconds: 5
           livenessProbe:
-            httpGet: { path: /healthz, port: 5020 }
+            httpGet:
+              path: /healthz
+              port: 5020
             initialDelaySeconds: 10
           volumeMounts:
             - name: webappdata
               mountPath: /var/webappdata
       volumes:
         - name: webappdata
-          PersistentVolumeClaim:
+          persistentVolumeClaim:
             claimName: webapp-data
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: webapp
+  namespace: net-apps
 spec:
   selector:
     app: webapp
   ports:
     - name: http
-      port: 5020
+      port: 80
       targetPort: 5020
 ---
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
   name: webapp
+  namespace: net-apps
 spec:
   to:
     kind: Service
     name: webapp
   port:
     targetPort: http
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
